@@ -1,0 +1,45 @@
+﻿@model WebApp.Areas.Admin.ViewModels.Products.Pages.AddPageViewModel
+@{
+    ViewData["Title"] = "Add";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1 class="h3 mb-4 text-gray-800">Add Product</h1>
+<div class="row">
+    <div class="col-lg-6">
+        <form asp-controller="Products"
+              asp-action="Save"
+              asp-route-returnurl="@ViewData["ReturnUrl"]"
+              method="post"
+              class="form-horizontal"
+              role="form">
+
+            <div class="form-group">
+                <label asp-for="ProductForm.Name">Product Name:</label>
+                <input asp-for="ProductForm.Name" class="form-control">
+                <span asp-validation-for="ProductForm.Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ProductForm.LabelCode">Product Code:</label>
+                <input asp-for="ProductForm.LabelCode" class="form-control">
+                <span asp-validation-for="ProductForm.LabelCode" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ProductForm.UnitPrice">Unit Price:</label>
+                <input asp-for="ProductForm.UnitPrice" class="form-control">
+                <span asp-validation-for="ProductForm.UnitPrice" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ProductForm.Description">Description:</label>
+                <textarea asp-for="ProductForm.Description" class="form-control"></textarea>
+                <span asp-validation-for="ProductForm.Description" class="text-danger"></span>
+            </div>
+            <input asp-for="ProductForm.Id" type="hidden" />
+            <button class="btn btn-primary" type="submit">Save Product</button>
+        </form>
+    </div>
+</div>
+
