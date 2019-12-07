@@ -1,0 +1,64 @@
+﻿@model WebApp.Areas.Admin.ViewModels.Customers.Pages.DetailsPageViewModel
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1 class="h3 mb-4 text-gray-800">Customer Details</h1>
+<div class="row">
+    <div class="col-xl-6 col-lg-6">
+        <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Address</h6>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                <span>@Model.Customer.AddressLine1,</span>
+                @if (!string.IsNullOrWhiteSpace(Model.Customer.AddressLine2))
+                {
+                    <span>@Model.Customer.AddressLine2,</span>
+                }
+                <span>@Model.Customer.Pincode,</span>
+                <span>@Model.Customer.City,</span>
+                <span>@Model.Customer.State,</span>
+                <span>@Model.Customer.Country,</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-6 col-lg-6">
+        <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Contacts</h6>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                <div>
+                    <span><i class="fas fa-phone-square"></i> @Model.Customer.ContactNumber1</span>
+                    @if (!string.IsNullOrWhiteSpace(Model.Customer.ContactNumber2))
+                    {
+                        <span style="text-indent: 20px;"><i class="fas fa-phone-square"></i> @Model.Customer.ContactNumber2</span>
+                    }
+                    @if (!string.IsNullOrWhiteSpace(Model.Customer.Email))
+                    {
+                        <span style="text-indent: 20px;"><i class="fas fa-envelope-square"></i> @Model.Customer.Email</span>
+                    }
+                </div>               
+            </div>
+        </div>
+    </div>
+</div>
+<div class="rows">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Order Details 
+                <a asp-area="Admin" asp-controller="Orders" asp-action="New" asp-route-id="@Model.Customer.Id" class="btn btn-danger btn-sm float-right"><i class="fas fa-plus-circle"></i> Add Order</a>
+            </h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive"></div>
+        </div>
+    </div>
+</div>

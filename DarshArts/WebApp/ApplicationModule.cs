@@ -21,10 +21,16 @@ namespace WebApp
 
             // Register Repository
             builder.RegisterType<ProductRepository>().As<IProductRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<StockRepository>().As<IStockRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<CustomerRepository>().As<ICustomerRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<OrderStatusTypeRepository>().As<IOrderStatusTypeRepository>().InstancePerLifetimeScope();
 
 
             // Register Services
             builder.RegisterType<ProductService>().As<IProductService>().InstancePerLifetimeScope();
+            builder.RegisterType<StockService>().As<IStockService>().InstancePerLifetimeScope();
+            builder.RegisterType<CustomerService>().As<ICustomerService>().InstancePerLifetimeScope();
+            builder.RegisterType<OrderService>().As<IOrderService>().InstancePerLifetimeScope();
         }
     }
 }

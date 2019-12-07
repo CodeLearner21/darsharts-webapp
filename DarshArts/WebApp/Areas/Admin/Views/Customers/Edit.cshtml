@@ -1,0 +1,85 @@
+﻿@model WebApp.Areas.Admin.ViewModels.Customers.Pages.EditCustomerPageViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1 class="h3 mb-4 text-gray-800">Add Customer</h1>
+<div class="row">
+    <div class="col-lg-6">
+        <form asp-area="Admin" asp-controller="Customers" asp-action="Save">
+            <div class="form-group">
+                <label asp-for="CustomerForm.Name">Name<sup>*</sup></label>
+                <input type="text" asp-for="CustomerForm.Name" class="form-control">
+                <span asp-validation-for="CustomerForm.Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CustomerForm.ContactNumber1">Mobile number<sup>*</sup></label>
+                <input type="text" asp-for="CustomerForm.ContactNumber1" class="form-control">
+                <span asp-validation-for="CustomerForm.ContactNumber1" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CustomerForm.ContactNumber2">Phone number</label>
+                <input type="text" asp-for="CustomerForm.ContactNumber2" class="form-control">
+                <span asp-validation-for="CustomerForm.ContactNumber2" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CustomerForm.Email">Email</label>
+                <input type="text" asp-for="CustomerForm.Email" class="form-control">
+                <span asp-validation-for="CustomerForm.Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CustomerForm.AddressLine1">Address Line 1<sup>*</sup></label>
+                <input type="text" asp-for="CustomerForm.AddressLine1" class="form-control" />
+                <span asp-validation-for="CustomerForm.AddressLine1" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CustomerForm.AddressLine2">Address Line 2</label>
+                <input type="text" asp-for="CustomerForm.AddressLine2" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CustomerForm.Pincode">Pincode<sup>*</sup></label>
+                <input type="text" asp-for="CustomerForm.Pincode" class="form-control" />
+                <span asp-validation-for="CustomerForm.Pincode" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CustomerForm.City">City<sup>*</sup></label>
+                <input type="text" asp-for="CustomerForm.City" class="form-control">
+                <span asp-validation-for="CustomerForm.City" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CustomerForm.State">State<sup>*</sup></label>
+                <input type="text" asp-for="CustomerForm.State" class="form-control">
+                <span asp-validation-for="CustomerForm.State" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="CustomerForm.Country">Country<sup>*</sup></label>
+                <input type="text" asp-for="CustomerForm.Country" class="form-control">
+                <span asp-validation-for="CustomerForm.Country" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label>Created on: @Model.CustomerForm.DateCreated</label>
+                <label>Last updated: @Model.CustomerForm.DateUpdated</label>
+            </div>
+
+            <input type="hidden" asp-for="CustomerForm.Id" />
+            <input type="hidden" asp-for="CustomerForm.DateCreated" />
+            <input type="hidden" asp-for="CustomerForm.DateUpdated" />
+
+            <button class="btn btn-primary" type="submit">Save Customer</button>
+        </form>
+    </div>
+</div>
+
+

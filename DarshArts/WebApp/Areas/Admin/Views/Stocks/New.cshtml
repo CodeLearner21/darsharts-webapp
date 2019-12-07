@@ -1,8 +1,47 @@
-﻿
+﻿@model WebApp.Areas.Admin.ViewModels.Stocks.Pages.AddStockPageViewModel
 @{
     ViewData["Title"] = "New";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>New</h1>
+<h1 class="h3 mb-4 text-gray-800">Add Stock</h1>
+@if (Model.Products == null)
+{
+    <p>There is no products added in database, please add product first <a asp-action="New" asp-controller="Products" asp-area="Admin">from here</a></p>
+}
+else
+{
+    <div class="row">
+        <div class="col-lg-6">
+            <form asp-controller="Stocks"
+                  asp-action="Save"
+                  method="post"
+                  class="form-horizontal"
+                  role="form">
+
+                <div class="form-group">
+                    <label asp-for="StockForm.ProductId">Select Product</label>
+                    <select asp-for="StockForm.ProductId"
+                            asp-items="@(new SelectList(Model.Products, "Id", "Name"))"
+                            class="form-control">
+                        <option value="">- Select -</option>                        
+                    </select>
+                    <span asp-validation-for="StockForm.ProductId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="StockForm.Quantity">Enter Quantity</label>
+                    <input asp-for="StockForm.Quantity"
+                           type="text"
+                           class="form-control">
+                    <span asp-validation-for="StockForm.Quantity" class="text-danger"></span>
+                </div>
+                <input type="hidden" asp-for="StockForm.Id" />
+                <input type="hidden" asp-for="StockForm.DateCreated" />
+                <input type="hidden" asp-for="StockForm.DateUpdated" />
+                <button type="submit" class="btn btn-primary">Save Stock</button>
+            </form>
+        </div>
+    </div>
+}
 

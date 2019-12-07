@@ -1,0 +1,40 @@
+﻿@model WebApp.Areas.Admin.ViewModels.Orders.Pages.AddOrderPageViewModel
+
+@{
+    ViewData["Title"] = "New";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1 class="h3 mb-4 text-gray-800">Create Order</h1>
+<p>Creating new order for <strong>@Model.Customer.Name</strong></p>
+
+
+<form asp-area="Admin" asp-controller="Orders" asp-action="Save" method="post">
+    
+    @if (Model.OrderStatusTypes != null)
+    {
+        <div class="form-group">
+            <label>Order Status</label>
+            <select class="form-control" asp-for="OrderForm.OrderStatusTypeId">
+                <option value="">- select -</option>
+                @foreach (var status in Model.OrderStatusTypes)
+                {
+                    <option value="@status.Id">@status.Name</option>
+                }
+            </select>
+        </div>
+    }
+
+    <div class="form-group">
+        <label>Description</label>
+        <textarea asp-for="OrderForm.Details" class="form-control" placeholder="Some extra text about order"></textarea>
+    </div>
+
+    <input type="hidden" asp-for="OrderForm.OrderId">
+    <input type="hidden" asp-for="OrderForm.CustomerId" value="@Model.Customer.Id">
+
+    <div class="form-group">
+        <button class="btn btn-primary">Save</button>
+    </div>
+</form>
+

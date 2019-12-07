@@ -1,10 +1,58 @@
-﻿
+﻿@model WebApp.Areas.Admin.ViewModels.Customers.Pages.CustomerHomePageViewModel
+
 @{
-    ViewData["Title"] = "Customers";
+    ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
+    var custId = TempData["NewCustomerId"];
 }
 
-<div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Customers</h1>
-</div>
+<h1 class="h3 mb-4 text-gray-800">Customers</h1>
 
+@if (Model.Customers != null)
+{
+    var counter = 1;
+<div class="table-responsive">
+    <table class="table table-striped product-table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Mobile</th>
+                <th scope="col">Telephone</th>
+                <th scope="col"><a asp-area="Admin" asp-controller="Customers" asp-action="New"><i class="fas fa-plus-circle"></i></a></th>
+                <th scope="col">&nbsp;</th>
+                <th scope="col">&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var customer in Model.Customers)
+            {
+            <tr>
+                <td>@counter</td>
+                <td>@customer.Name</td>
+                <td>
+                    @customer.ContactNumber1
+                </td>
+                <td>
+                    @(customer.ContactNumber2 != null ? customer.ContactNumber2 : "-")
+                </td>
+                <td><a asp-area="Admin" asp-controller="Customers" asp-action="Details" asp-route-id="@customer.Id"><i class="fas fa-info-circle"></i></a></td>
+                <td><a asp-area="Admin" asp-controller="Customers" asp-action="Edit" asp-route-id="@customer.Id"><i class="far fa-edit"></i></a></td>
+                <td>
+                    <form id="delete-form" method="post" asp-area="Admin" asp-controller="Customers" asp-action="Delete">
+                        <input type="hidden" name="custId" value="@customer.Id" />
+                        <button class="btn" type="submit" onclick="return confirm('Are you sure you want to delete: @customer.Name?')"><i class="far fa-trash-alt"></i></button>
+                    </form>
+                </td>
+            </tr>
+                counter = counter + 1;
+            }
+            </tbody>
+        </table>
+</div>
+}
+else
+{
+    <p>No customer added in database yet, please add customer from <a asp-area="Admin" asp-controller="Customers" asp-action="New">here</a>.</p>
+}

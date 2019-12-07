@@ -1,0 +1,36 @@
+﻿.product-table {
+    .col-srno {
+        width: 5%;
+    }
+
+    .col-code {
+        width: 10%;
+    }
+
+    .col-name {
+        width: 20%;
+    }
+
+    .col-price {
+        width: 10%;
+    }
+
+    .col-description {
+        width: 45%;
+    }
+
+    .col-edit, .col-delete {
+        width: 5%;
+    }
+
+    #delete-form {
+        button {
+            padding: 0;
+            margin: 0;
+
+            .far {
+                color: red;
+            }
+        }
+    }
+}

@@ -1,7 +1,53 @@
-﻿
+﻿@model WebApp.Areas.Admin.ViewModels.Products.Pages.ProductPageViewModel
+
 @{
     ViewData["Title"] = "Products";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
 <h1 class="h3 mb-4 text-gray-800">Products</h1>
+@if (Model.Products != null)
+{
+     var counter = 1;
+    <div class="table-responsive">
+        <table class="table table-striped product-table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Code</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Unit Price</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">&nbsp;</th>
+                    <th scope="col">&nbsp;</th>
+                </tr>
+            </thead>           
+            <tbody>
+                @foreach (var product in Model.Products)
+                {
+                    <tr class="">
+                        <td class="col-srno">@counter</td>
+                        <td class="col-code">@product.LabelCode</td>
+                        <td class="col-name">@product.Name</td>
+                        <td class="col-price">@product.UnitPrice</td>
+                        <td class="col-description">@(product.Description.Length > 50 ? product.Description.Substring(0, 49) + "..." : product.Description)</td>
+                        <td class="col-edit">
+                            <a asp-area="Admin" asp-controller="Products" asp-action="Edit" asp-route-id="@product.Id"><i class="far fa-edit"></i></a>
+                        </td>
+                        <td class="col-delete">
+                            <form id="delete-form" method="post" asp-area="Admin" asp-controller="Products" asp-action="Delete">
+                                <input type="hidden" name="productId" value="@product.Id" />
+                                <button class="btn" type="submit" onclick="return confirm('Are you sure you want to delete: @product.Name?')"><i class="far fa-trash-alt"></i></button>
+                            </form>
+                        </td>
+                    </tr>
+                    counter = counter + 1;
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <p>Currently we do not have any products added in databse, please add new product from <a asp-area="Admin" asp-controller="Products" asp-action="New">here</a></p>
+}

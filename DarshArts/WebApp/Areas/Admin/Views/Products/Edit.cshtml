@@ -1,0 +1,56 @@
+﻿@model WebApp.Areas.Admin.ViewModels.Products.Pages.EditPageViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Edit Product - @Model.ProductForm.Name</h1>
+<div class="row">
+    <div class="col-lg-6">
+        <form asp-controller="Products"
+              asp-action="Save"
+              asp-route-returnurl="@ViewData["ReturnUrl"]"
+              method="post"
+              class="form-horizontal"
+              role="form">
+
+            <div class="form-group">
+                <label asp-for="ProductForm.LabelCode">Product Code: <strong>@Model.ProductForm.LabelCode</strong></label>
+                <input type="hidden" asp-for="ProductForm.LabelCode" class="form-control" readonly>                
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ProductForm.Name">Product Name:</label>
+                <input asp-for="ProductForm.Name" class="form-control">
+                <span asp-validation-for="ProductForm.Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ProductForm.UnitPrice">Unit Price:</label>
+                <input type="text" asp-for="ProductForm.UnitPrice" class="form-control">
+                <span asp-validation-for="ProductForm.UnitPrice" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ProductForm.Description">Description:</label>
+                <textarea rows="5" asp-for="ProductForm.Description" class="form-control"></textarea>
+                <span asp-validation-for="ProductForm.Description" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ProductForm.DateCreated">Created Date: @Model.ProductForm.DateCreated</label>
+                <input type="hidden" asp-for="ProductForm.DateCreated" class="form-control" readonly>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ProductForm.DateUpdated">Last Updated: @Model.ProductForm.DateUpdated</label>
+                <input type="hidden" asp-for="ProductForm.DateUpdated" class="form-control" readonly>
+            </div>
+            <input type="hidden" asp-for="ProductForm.Id" class="form-control" readonly>
+            <button class="btn btn-primary" type="submit">Save Changes</button>
+        </form>
+    </div>
+</div>
+
+

@@ -11,5 +11,7 @@ namespace WebApp.Entities
         public string LabelCode { get; set; }
         public decimal UnitPrice { get; set; }
         public string Description { get; set; }
+
+        public IEnumerable<OrderItem> OrderItems { get; set; }
     }
 }

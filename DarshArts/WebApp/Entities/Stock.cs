@@ -7,12 +7,10 @@ using System.Threading.Tasks;
 namespace WebApp.Entities
 {
     public class Stock : BaseEntity
-    {        
+    {
         public Guid ProductId { get; set; }
-
         [ForeignKey("ProductId")]
         public Product Product { get; set; }
-
         public int Quantity { get; set; }
     }
 }

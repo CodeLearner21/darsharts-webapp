@@ -1,0 +1,6 @@
+﻿[
+  {
+    "outputFile": "wwwroot/css/admin-main.min.css",
+    "inputFile": "wwwroot/css/admin/scss/admin-main.scss"
+  }
+]

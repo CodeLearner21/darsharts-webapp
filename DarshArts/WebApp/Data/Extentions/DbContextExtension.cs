@@ -38,6 +38,14 @@ namespace WebApp.Data.Extentions
 
             context.UserRoles.Add(new IdentityUserRole<Guid> { UserId = appUser.Id, RoleId = appRole.Id });
             context.SaveChanges();
+
+            // Seed Default Order Status Types
+            List<OrderStatusType> statusTypes = new List<OrderStatusType>();
+            statusTypes.Add(new OrderStatusType { Name = "Completed" });
+            statusTypes.Add(new OrderStatusType { Name = "Pending" });
+            statusTypes.Add(new OrderStatusType { Name = "Cancelled" });
+            context.OrderStatusTypes.AddRange(statusTypes);
+            context.SaveChanges();
         }
     }
 }
