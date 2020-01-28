@@ -6,8 +6,8 @@ using WebApp.Areas.Admin.Dtos;
 
 namespace WebApp.Areas.Admin.ViewModels.Orders.Pages
 {
-    public class OrderHomePageViewModel
+    public class CartItemListDisplayViewModel
     {
-        public IEnumerable<OrderDto> Orders { get; set; }
+        public IEnumerable<CartItemDto> CartItems { get; set; }
     }
 }

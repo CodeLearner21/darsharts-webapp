@@ -38,8 +38,15 @@ namespace WebApp.Data
             CreateMap<OrderFormViewModel, Order>()
                 .ReverseMap();
 
+            CreateMap<OrderDto, Order>()
+                .ReverseMap();
+
+            CreateMap<OrderItemDto, OrderItem>()
+                .ReverseMap();
+
             CreateMap<OrderStatusTypeDto, OrderStatusType>()
                 .ReverseMap();
+
 
         }
     }

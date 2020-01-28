@@ -1,8 +1,51 @@
-﻿
+﻿@model WebApp.Areas.Admin.ViewModels.Orders.Pages.OrderHomePageViewModel
+
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
 <h1 class="h3 mb-4 text-gray-800">Orders</h1>
-
+@if(Model.Orders != null)
+{
+    var counter = 1;
+    <table class="table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Customer Name</th>
+                <th>Order Number</th>
+                <th>Order Date</th>
+                <th>Last Update</th>
+                <th>Order Status</th>
+                <th>&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var order in Model.Orders)
+            {
+                var statusClass = "table-light";
+                if (order.OrderStatusType.Name == "Pending")
+                    statusClass = "table-danger";
+                if (order.OrderStatusType.Name == "Cancelled")
+                    statusClass = "table-info";
+                if (order.OrderStatusType.Name == "Completed")
+                    statusClass = "table-success";
+            <tr class="@statusClass">
+                <td>@counter</td>
+                <td>@order.Customer.Name</td>
+                <td>@order.OrderCode</td>
+                <td>@order.DateCreated</td>
+                <td>@order.DateUpdated</td>
+                <td>@order.OrderStatusType.Name</td>
+                <td><a asp-area="Admin" asp-controller="Orders" asp-action="Details" asp-route-id="@order.Id"><i class="fas fa-info-circle"></i></a></td>
+            </tr> 
+                counter = counter + 1;
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No orders has been created yet.</p>
+}

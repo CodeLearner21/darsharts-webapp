@@ -5,19 +5,12 @@ using System.Threading.Tasks;
 
 namespace WebApp.Areas.Admin.Dtos
 {
-    public class OrderItemDto
+    public class CartItemDto
     {
-        public string Id { get; set; }
-
         public string ProductId { get; set; }
-        public ProductDetailsDto Product { get; set; }
-
-        public string OrderId { get; set; }
-
+        public string Name { get; set; }
         public int Quantity { get; set; }
-        
-        public string Details { get; set; }
-
+        public string Description { get; set; }
         public decimal ItemTotalPrice { get; set; }
     }
 }

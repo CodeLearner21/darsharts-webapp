@@ -6,6 +6,165 @@
 
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+
+    <input class="form-control" style="max-width: 300px;" type="text" name="daterange" value="01/01/2018 - 01/15/2018" />
+</div>
+<div class="row">
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-danger shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Pending Orders</div>
+                        <div id="pending-order-display" class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Completed Orders</div>
+                        <div id="completed-order-display" class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-secondary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Cancelled Orders</div>
+                        <div id="cancelled-order-display" class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 
+@section Scripts {
+    <script type="text/javascript">
+
+        var loadPendingOrders = function () {
+
+            var baseUrl = `${document.location.protocol}//${document.location.host}`;
+            var apiUrl = `${baseUrl}/Admin/Dashboard/GetOrdersByTypeAjax`;
+
+            $.ajax({
+                url: apiUrl,
+                method: 'get',
+                data: { orderType: 'Pending' }
+            }).done(function (response) {
+                if (response && response.length > 0) {
+                    var totalAmount = 0;
+                    var totalCount = response.length;
+                    var orderText = 'Order';
+                    $.each(response, function (index, data) {
+                        if (index > 0)
+                            orderText = 'Orders';
+                        totalAmount = totalAmount + data.orderTotalPrice;
+                    });
+                    
+                    var text = `${totalCount} ${orderText} of <br /><i class="fas fa-rupee-sign"></i> ${totalAmount}`;
+                    $('#pending-order-display').html(text);
+                }
+            }).fail(function (xhr) {
+                console.log(xhr);
+            });
+        }
+
+        var loadCompletedOrders = function () {
+
+            var baseUrl = `${document.location.protocol}//${document.location.host}`;
+            var apiUrl = `${baseUrl}/Admin/Dashboard/GetOrdersByTypeAjax`;
+
+            $.ajax({
+                url: apiUrl,
+                method: 'get',
+                data: { orderType: 'Completed' }
+            }).done(function (response) {
+                if (response && response.length > 0) {
+                    var totalAmount = 0;
+                    var totalCount = response.length;
+                    var orderText = 'Order';
+                    $.each(response, function (index, data) {
+                        if (index > 0)
+                            orderText = 'Orders';
+
+                        totalAmount = totalAmount + data.orderTotalPrice;
+                    });
+                    
+                    
+
+                    var text = `${totalCount} ${orderText} of <br /><i class="fas fa-rupee-sign"></i> ${totalAmount}`;
+                    $('#completed-order-display').html(text);
+                }
+            }).fail(function (xhr) {
+                console.log(xhr);
+            });
+        }
+
+        var loadCancelledOrders = function () {
+
+            var baseUrl = `${document.location.protocol}//${document.location.host}`;
+            var apiUrl = `${baseUrl}/Admin/Dashboard/GetOrdersByTypeAjax`;
+
+            $.ajax({
+                url: apiUrl,
+                method: 'get',
+                data: { orderType: 'Cancelled' }
+            }).done(function (response) {
+                if (response && response.length > 0) {
+                    var totalAmount = 0;
+                    var totalCount = response.length;
+                    var orderText = 'Order';
+                    $.each(response, function (index, data) {
+                        if (index > 0)
+                            orderText = 'Orders';
+
+                        totalAmount = totalAmount + data.orderTotalPrice;
+                    });
+                    
+                    
+
+                    var text = `${totalCount} ${orderText} of <br /><i class="fas fa-rupee-sign"></i> ${totalAmount}`;
+                    $('#cancelled-order-display').html(text);
+                }
+            }).fail(function (xhr) {
+                console.log(xhr);
+            });
+        }
+
+
+        $(document).ready(function () {
+
+            $('input[name="daterange"]').daterangepicker({
+                opens: 'left'
+              }, function(start, end, label) {
+                console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+              });
+
+            loadPendingOrders();
+            loadCompletedOrders();
+            loadCancelledOrders();
+        });
+    </script>
+}

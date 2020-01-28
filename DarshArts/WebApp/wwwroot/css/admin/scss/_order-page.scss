@@ -1,0 +1,61 @@
+﻿/****  Order Pages Styles   ****/
+.order-item-form-section {
+    margin-bottom: 10px;
+
+    .item-form-row {
+
+        margin: 10px 0;
+
+        .add-item-form {
+
+            &.show {
+                display: flex;
+            }
+
+            &.hide {
+                display: none;
+            }
+
+            .btn-add-item {
+
+                .loader {
+                    display: none;
+                }
+            }
+        }
+
+        .btn-add-more {
+            display: none;
+        }
+    }
+}
+
+#selected-item-list {
+    .list-group {
+        .list-group-item {
+            span {
+                display: inline-block;
+
+                &.multiply-sign {
+                    width: 50px;
+                    text-align: center;
+                }
+
+                &.equal-sign {
+                    width: 50px;
+                    text-align: center;
+                }
+            }
+        }
+    }
+}
+
+.order-details {
+    .detail-row {
+        padding: 10px 0;
+        .detail-lable {
+            font-weight: bold;
+            width: 250px;
+        }
+    }
+}

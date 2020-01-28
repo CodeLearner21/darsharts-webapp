@@ -20,5 +20,6 @@ namespace WebApp.Areas.Admin.Dtos
         public string Country { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateUpdated { get; set; }
+        public IEnumerable<OrderDto> Orders { get; set; }
     }
 }

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WebApp.Data.Migrations
 {
-    public partial class IntialCreate : Migration
+    public partial class IntitalCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -210,10 +210,13 @@ namespace WebApp.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
+                    OrderCode = table.Column<string>(nullable: true),
                     DateCreated = table.Column<DateTime>(nullable: false),
+                    DateUpdated = table.Column<DateTime>(nullable: false),
                     Details = table.Column<string>(nullable: true),
                     CustomerId = table.Column<Guid>(nullable: false),
-                    OrderStatusTypeId = table.Column<Guid>(nullable: false)
+                    OrderStatusTypeId = table.Column<Guid>(nullable: false),
+                    OrderTotalPrice = table.Column<decimal>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -261,7 +264,8 @@ namespace WebApp.Data.Migrations
                     ProductId = table.Column<Guid>(nullable: false),
                     OrderId = table.Column<Guid>(nullable: false),
                     Quantity = table.Column<int>(nullable: false),
-                    Details = table.Column<string>(nullable: true)
+                    Details = table.Column<string>(nullable: true),
+                    ItemTotalPrice = table.Column<decimal>(nullable: false)
                 },
                 constraints: table =>
                 {

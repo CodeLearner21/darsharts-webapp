@@ -1,0 +1,49 @@
+﻿@model WebApp.Areas.Admin.ViewModels.Orders.Pages.EditOrderPageViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Edit Order</h1>
+
+<form id="order-form" asp-area="Admin" asp-controller="Orders" asp-action="Update" method="post">
+    <div class="form-group">
+        <label>Order Number</label>
+        <input class="form-control" type="text" asp-for="OrderForm.OrderCode" readonly>
+    </div>
+
+    <div class="form-group">
+        <label>Total Amount</label>
+        <input class="form-control" type="number" min="0" asp-for="OrderForm.OrderTotalPrice" readonly>
+    </div>
+        
+
+    @if (Model.OrderStatusTypes != null)
+    {
+        <div class="form-group">
+            <label>Order Status</label>
+            <select class="form-control" asp-for="OrderForm.OrderStatusTypeId">
+                <option value="">- select -</option>
+                @foreach (var status in Model.OrderStatusTypes)
+                {
+                    <option value="@status.Id">@status.Name</option>
+                }
+            </select>
+        </div>
+    }
+
+    <div class="form-group">
+        <label>Description</label>
+        <textarea asp-for="OrderForm.Details" class="form-control" placeholder="Some extra text about order"></textarea>
+    </div>
+
+    <input type="hidden" asp-for="OrderForm.Id">
+    <input type="hidden" asp-for="OrderForm.DateCreated">
+    <input type="hidden" asp-for="OrderForm.DateUpdated" value="@DateTime.Now">
+    <input type="hidden" asp-for="OrderForm.CustomerId">
+
+    <div class="form-group">
+        <button class="btn btn-primary">Save</button>
+    </div>
+</form>

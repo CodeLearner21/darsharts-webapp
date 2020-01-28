@@ -58,7 +58,36 @@
             </h6>
         </div>
         <div class="card-body">
-            <div class="table-responsive"></div>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Order Number</th>
+                            <th>Status</th>
+                            <th>Created Date</th>
+                            <th>Last Updated</th>                            
+                            <th>&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{ var counter = 1; }
+                        @foreach (var order in Model.Customer.Orders)
+                        {
+                            <tr>
+                                <td>@counter</td>
+                                <td>@order.OrderCode</td>
+                                <td>@order.OrderStatusType.Name</td>
+                                <td>@order.DateCreated.ToShortDateString()</td>
+                                <td>@order.DateUpdated.ToShortDateString()</td>                                
+                                <td><a asp-area="Admin" asp-controller="Orders" asp-action="Details" asp-route-id="@order.Id"><i class="fas fa-info-circle"></i></a></td>
+                            </tr>
+                            counter = counter + 1;
+                        }
+                    </tbody>
+                    
+                </table>
+            </div>
         </div>
     </div>
 </div>

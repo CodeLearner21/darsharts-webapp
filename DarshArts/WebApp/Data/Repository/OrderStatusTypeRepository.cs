@@ -36,7 +36,7 @@ namespace WebApp.Data.Repository
             }
         }
 
-        public async Task<OrderStatusType> GetAllAsync(string id)
+        public async Task<OrderStatusType> GetOneAsync(string id)
         {
             try
             {

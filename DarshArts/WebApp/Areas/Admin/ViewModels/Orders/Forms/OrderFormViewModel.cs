@@ -9,17 +9,17 @@ namespace WebApp.Areas.Admin.ViewModels.Orders.Forms
 {
     public class OrderFormViewModel
     {
-        public string OrderId { get; set; }
-        
+        public string Id { get; set; }
+        public string OrderCode { get; set; }
         [Required]
-        public string OrderStatusTypeId { get; set; }
-        
+        public string OrderStatusTypeId { get; set; }        
         [Required]
-        public string CustomerId { get; set; }        
-
+        public string CustomerId { get; set; }
         public string Details { get; set; }
-
         public IEnumerable<OrderItemDto> OrderItems { get; set; }
+        public decimal OrderTotalPrice { get; set; }
+        public DateTime DateCreated { get; set; }
+        public DateTime DateUpdated { get; set; }
 
     }
 }

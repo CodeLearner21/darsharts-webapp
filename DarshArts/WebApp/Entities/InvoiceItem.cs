@@ -6,20 +6,18 @@ using System.Threading.Tasks;
 
 namespace WebApp.Entities
 {
-    public class OrderItem
+    public class InvoiceItem
     {
         public Guid Id { get; set; }
 
-        public Guid ProductId { get; set; }
-        [ForeignKey("ProductId")]
-        public Product Product { get; set; }
-
-        public Guid OrderId { get; set; }
-        [ForeignKey("OrderId")]
-        public Order Order { get; set; }
-
+        public string ProductName { get; set; }
+        public string ProductDescription { get; set; }
         public int Quantity { get; set; }
-        public string Details { get; set; }
+        public decimal UnitPrice { get; set; }
         public decimal ItemTotalPrice { get; set; }
+
+        public Guid InvoiceId { get; set; }
+        [ForeignKey("InvoiceId")]
+        public Invoice Invoice { get; set; }
     }
 }

@@ -8,9 +8,43 @@
 <h1 class="h3 mb-4 text-gray-800">Create Order</h1>
 <p>Creating new order for <strong>@Model.Customer.Name</strong></p>
 
+<div id="selected-item-list">
+    <partial name="_CartItemListPartial" model="Model.OrderItemList" />
+</div>
 
-<form asp-area="Admin" asp-controller="Orders" asp-action="Save" method="post">
-    
+<div class="order-item-form-section">
+@if(Model.Stocks != null)
+{
+    foreach(var stock in Model.Stocks)
+    {
+    <div class="item-form-row">
+        <form class="add-item-form form-inline @((Model.Stocks.First() == stock) ? "show" : "hide")">
+            <div class="form-group">
+                <select class="form-control productId" name="ProductId">
+                    <option value="" selected>- select -</option>
+                    @foreach (var product in Model.Products)
+                    {
+                        <option value="@product.Id">@product.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <input name="Quantity" type="number" class="form-control productQuantity" placeholder="Quantity" />
+            </div>
+            <div class="form-group">
+                <input name="Description" type="text" class="form-control productDescription" placeholder="Description" />
+            </div>
+            <button type="button" class="btn btn-add-item">Add <i class="fas fa-circle-notch fa-spin loader"></i></button>
+        </form>
+        @if (Model.Stocks.Last() != stock)
+        {
+            <a class="btn-add-more" href="javascript:void(0)">Add More</a>
+        }
+    </div>
+    }
+}
+</div>
+<form id="order-form" asp-area="Admin" asp-controller="Orders" asp-action="Save" method="post">    
     @if (Model.OrderStatusTypes != null)
     {
         <div class="form-group">
@@ -30,7 +64,10 @@
         <textarea asp-for="OrderForm.Details" class="form-control" placeholder="Some extra text about order"></textarea>
     </div>
 
-    <input type="hidden" asp-for="OrderForm.OrderId">
+    <input type="hidden" asp-for="OrderForm.Id">
+    <input type="hidden" asp-for="OrderForm.OrderCode">
+    <input type="hidden" asp-for="OrderForm.DateCreated" value="@DateTime.Now">
+    <input type="hidden" asp-for="OrderForm.DateUpdated" value="@DateTime.Now">
     <input type="hidden" asp-for="OrderForm.CustomerId" value="@Model.Customer.Id">
 
     <div class="form-group">
@@ -38,3 +75,99 @@
     </div>
 </form>
 
+@section Scripts {
+    <script>
+
+        var loadItemCart = function () {
+            var baseUrl = `${document.location.protocol}//${document.location.host}`;
+            var apiUrl = `${baseUrl}/Admin/Orders/GetCartItems`;
+            $.ajax({
+                url: apiUrl,
+                method: 'get'
+            }).done(function (response) {
+                if (response)
+                    $('#selected-item-list').html(response);
+            }).fail(function (xhr) {
+                console.log(xhr);                
+            });
+        }
+
+        var removeItemFromCart = function (itemId) {
+            var baseUrl = `${document.location.protocol}//${document.location.host}`;
+            var apiUrl = `${baseUrl}/Admin/Orders/RemoveCartItem/${itemId}`;
+            $.ajax({
+                url: apiUrl,
+                method: 'post'
+            }).done(function (response) {
+                if (response)
+                    $('#selected-item-list').html(response);
+            }).fail(function (xhr) {
+                console.log(xhr);                
+            });
+        }
+
+        $(document).ready(function () {
+            // Add item to list
+            $('.btn-add-item').on('click', function () {
+                var $this = $(this);
+                var $form = $this.parent();
+                var $productField = $form.find('.productId');
+                var $quantityField = $form.find('.productQuantity');
+                var $descriptionField = $form.find('.productDescription');
+                var $addmoreLink = $form.siblings('.btn-add-more');
+                var $loader = $this.children('.loader');
+                
+                if ($productField.val() === '' || $quantityField.val() === '') {
+                    alert('Please select product and add quantity');
+                    return;
+                }
+
+                var baseUrl = `${document.location.protocol}//${document.location.host}`;
+                var apiUrl = `${baseUrl}/Admin/Orders/AddItemToCartSession`;
+                var data = {
+                    productId: $productField.val(),
+                    quantity: Number($quantityField.val()),
+                    description: $descriptionField.val()
+                }
+                $.ajax({
+                    url: apiUrl,
+                    method: 'post',
+                    data: data,
+                    beforeSend: function () {
+                        $loader.show();
+                    }
+                }).done(function (response) {
+                    loadItemCart();
+                    $loader.hide();
+                    $form.hide();
+                    $addmoreLink.show();
+                }).fail(function (xhr) {
+                    console.log(xhr);
+                    $loader.hide();
+                });
+                return;
+            });
+
+            // Show form for next item
+            $('.btn-add-more').on('click', function () {
+                var $this = $(this);
+                var $itemFormRow = $this.parent();
+                var $nextFormRow = $itemFormRow.next();
+                var $form = $nextFormRow.children('.add-item-form');
+                $form.removeClass('hide').addClass('show');
+                $this.hide();
+                return;
+            });
+        });
+
+        $(document).ajaxComplete(function (event, xhr, settings) {
+
+            $(".btn-remove-item").on('click', function() {
+                var $this = $(this);
+                var prodId = $this.attr('data-content');
+                removeItemFromCart(prodId);
+            });
+
+        });
+    </script>
+}

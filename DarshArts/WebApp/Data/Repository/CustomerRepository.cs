@@ -40,7 +40,7 @@ namespace WebApp.Data.Repository
         {
             try
             {
-                var customer = await _context.Customers.SingleOrDefaultAsync(c => c.Id == Guid.Parse(id));
+                var customer = await _context.Customers.Include(c => c.Orders).ThenInclude(o => o.OrderStatusType).SingleOrDefaultAsync(c => c.Id == Guid.Parse(id));
                 if (customer != null)
                     return customer;
 

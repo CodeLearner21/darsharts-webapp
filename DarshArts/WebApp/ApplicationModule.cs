@@ -24,6 +24,8 @@ namespace WebApp
             builder.RegisterType<StockRepository>().As<IStockRepository>().InstancePerLifetimeScope();
             builder.RegisterType<CustomerRepository>().As<ICustomerRepository>().InstancePerLifetimeScope();
             builder.RegisterType<OrderStatusTypeRepository>().As<IOrderStatusTypeRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<OrderRepository>().As<IOrderRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<OrderItemRepository>().As<IOrderItemRepository>().InstancePerLifetimeScope();
 
 
             // Register Services

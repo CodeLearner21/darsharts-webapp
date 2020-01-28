@@ -4,6 +4,7 @@
     "inputFiles": [
       "wwwroot/sbadmin-theme/vendor/fontawesome-free/css/all.min.css",
       "wwwroot/sbadmin-theme/css/sb-admin-2.css",
+      "wwwroot/lib/bootstrap-daterangepicker/daterangepicker.css",
       "wwwroot/css/site.css"
     ]
   },
@@ -13,7 +14,9 @@
       "wwwroot/lib/jquery/dist/jquery.js",
       "wwwroot/lib/jquery-validation/dist/jquery.validate.js",
       "wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js",
+      "wwwroot/lib/moment-js/moment.js",
       "wwwroot/lib/bootstrap/dist/js/bootstrap.js",
+      "wwwroot/lib/bootstrap-daterangepicker/daterangepicker.js",
       "wwwroot/sbadmin-theme/js/sb-admin-2.js",
       "wwwroot/js/site.js"
     ],

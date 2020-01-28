@@ -1,0 +1,23 @@
+﻿@model WebApp.Areas.Admin.ViewModels.Orders.Pages.CartItemListDisplayViewModel
+
+@if (Model.CartItems != null && Model.CartItems.Any())
+{
+    <ul class="list-group col-md-6">
+        @foreach (var item in Model.CartItems)
+        {
+        <li class="list-group-item">
+            <span class="prod-name">@item.Name</span>
+            <span class="multiply-sign">X</span>
+            <span class="prod-quantity">@item.Quantity</span>
+            <span class="equal-sign">=</span>
+            <span class="prod-total">@item.ItemTotalPrice</span>
+            
+            <button type="button" class="btn btn-sm float-right btn-remove-item" data-content="@item.ProductId"><i class="far fa-times-circle"></i></button>
+        </li>
+        }
+    </ul>
+}
+else
+{
+    <p>Please add item from below</p>
+}   

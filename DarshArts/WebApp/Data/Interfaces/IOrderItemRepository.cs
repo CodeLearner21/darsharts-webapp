@@ -6,9 +6,8 @@ using WebApp.Entities;
 
 namespace WebApp.Data.Interfaces
 {
-    public interface IOrderStatusTypeRepository
+    public interface IOrderItemRepository
     {
-        Task<IEnumerable<OrderStatusType>> GetAllAsync();
-        Task<OrderStatusType> GetOneAsync(string id);
+        Task<IEnumerable<OrderItem>> GetAllByOrderIdAsync(string orderId);
     }
 }

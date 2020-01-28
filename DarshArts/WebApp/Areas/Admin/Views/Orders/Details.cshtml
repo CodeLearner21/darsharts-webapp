@@ -1,0 +1,80 @@
+﻿@model WebApp.Areas.Admin.ViewModels.Orders.Pages.OrderDetailsPageViewModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1 class="h3 mb-4 text-gray-800">Order Details</h1>
+@if(Model.Order != null)
+{
+    <div class="col-xs-12 card shadow order-details">
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="col-xs-6 font-weight-bold text-primary">Order Number: @Model.Order.OrderCode</h6>
+            <h6 class="col-xs-6 font-weight-bold text-primary">Date: @Model.Order.DateCreated.ToShortDateString()</h6>
+        </div>
+        <div class="card-body">
+            <div class="d-flex flex-column">
+                <div class="d-flex detail-row">
+                    <div class="detail-lable">Customer Name:</div>
+                    <div class="detail-value">@Model.Order.Customer.Name</div>
+                </div>
+                <div class="d-flex detail-row">
+                    <div class="detail-lable">Order Status:</div>
+                    <div class="detail-value">@Model.Order.OrderStatusType.Name</div>
+                </div>
+                <div class="d-flex flex-column detail-row">
+                    <div class="detail-lable">Order Details:</div>
+                    <div class="detail-value">@Model.Order.Details</div>
+                </div>
+                <div class="d-flex flex-column detail-row">
+                    <div class="detail-lable">Order Items:</div>
+                    <div class="detail-value">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Product</th>
+                                    <th>Price</th>
+                                    <th>Quanity</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{ var counter = 1;  }
+                                @foreach(var item in Model.Order.OrderItems)
+                                {
+                                    <tr>
+                                        <td>@counter</td>
+                                        <td>@item.Product.Name</td>
+                                        <td>@item.Product.UnitPrice</td>
+                                        <td>@item.Quantity</td>
+                                        <td>@item.ItemTotalPrice</td>
+                                    </tr>
+                                    counter = counter + 1;
+                                }
+                            </tbody>
+                            <tfoot>
+                                
+                                <tr>
+                                    <th colspan="3">&nbsp;</th>
+                                    <th>Total</th>
+                                    <th>@Model.Order.OrderTotalPrice</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>                
+            </div>
+            <div>
+                <a asp-area="Admin" asp-controller="Orders" asp-action="Edit" asp-route-id="@Model.Order.Id" class="btn btn-primary text-white"><i class="far fa-edit"></i> Edit Order</a>
+
+                <a asp-area="Admin" asp-controller="Invoices" asp-action="New" asp-route-id="@Model.Order.Id" class="btn btn-outline-secondary"><i class="fas fa-file-invoice"></i> Generate Invoice</a>
+
+                <form id="delete-form" class="float-right" method="post" asp-area="Admin" asp-controller="Orders" asp-action="Delete">
+                    <input type="hidden" name="orderId" value="@Model.Order.Id" />
+                    <button class="btn btn-danger text-white" type="submit" onclick="return confirm('Are you sure you want to delete this order?')"><i class="far fa-trash-alt"></i> Delete Order</button>
+                </form>
+            </div>
+        </div>
+    </div>
+}
